@@ -12,4 +12,4 @@ My team was mostly in the same page as me, because we all missed the first class
 After deliberating about our team goals, we went right to work with organizing the trello board and assigned me to the scrum master. However, we haven't divided the responsibilities because we're still trying to figure out what our project entails. This is the reason why we haven't populated our trello board with specific tasks, but we'll have a better idea later this week.
 
 ## Conclusion
-I'm still apprehensive about learning so much material for the first project. I'm very unfamiliar with the C language and don't recognize many of the terms associated with Operating System and hardware. I do believe that I'll complete my goals with the Eduscrum method. 
+I'm still apprehensive about learning so much material for the first project. I'm very unfamiliar with the C language and don't recognize many of the terms associated with Operating System and hardware. I do, however, believe that I'll complete my goals with the Eduscrum method with enough time. 

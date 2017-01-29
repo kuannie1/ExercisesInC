@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+// Consider: making one helper function (in calcCardVal) for characters, and one for numbers?
 int main()
 {
 	char card_name[3];
 	int count = 0;
-	int val = 0;
+	int val;
 	while (card_name[0] != 'x') {
 		puts("Enter the card_name: ");
 		scanf("%2s", card_name);
@@ -39,8 +41,8 @@ int main()
 //one TBD
 
  // Determines the card's point value by its string input
-int calcCardVal(cardFace) {
-	int cardVal = 0;
+int calcCardVal(char cardFace) {
+	int cardVal;
 	switch(cardFace) {
 		case 'K':
 		case 'Q':
@@ -50,16 +52,36 @@ int calcCardVal(cardFace) {
 		case 'A':
 			cardVal = 11;
 			break;
-		case 'x':
+		case '1':
+			cardVal = 1;
+			break;
+		case '2':
+			cardVal = 2;
+			break;
+		case '3':
+			cardVal = 3;
+			break;
+		case '4':
+			cardVal = 4;
+			break;
+		case '5':
+			cardVal = 5;
+			break;
+		case '6':
+			cardVal = 6;
+			break;
+		case '7':
+			cardVal = 7;
+			break;
+		case '8':
+			cardVal = 8;
+			break;
+		case '9':
+			cardVal = 9;
 			break;
 		default:
-			cardVal = cardFace - '0';
-			if ((cardVal < 1) || (cardVal > 10)) {
-				puts("I don't understand that value!");
-				break;
-			} else {
-				break;
-			}
+			cardVal = 0;
+			break;
 	}
 	return cardVal;
 }

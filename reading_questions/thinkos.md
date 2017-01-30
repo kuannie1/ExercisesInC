@@ -5,19 +5,32 @@
 
 1) Give an example of a feature common in interpreted languages that is rare in compiled languages.
 
+Interpreted languages support dynamic types, which means you don't necessarily know what type a value is. 
+
 2) Name two advantages of static typing over dynamic typing.
+
+First, declaring types at compile time saves space. Second, errors can be found more quickly due to checking before the program runs
 
 3) Give an example of a static semantic error.
 
+A static semantic error happens when the compiler checks the code makes sense, so checking whether variables or values have the right type is an example. 
+
 4) What are two reasons you might want to turn off code optimization?
 
+Less code optimization can make debugging easier, and additional optimizations require longer compilation time. 
+
 5) When you run `gcc` with `-S`, why might the results look different on different computers?
+
+The results of gcc with -S depends on what architecture you're using. 
 
 6) If you spell a variable name wrong, or if you spell a function name wrong, 
 the error messages you get might look very different.  Why?
 
+Using an undefined entity returns an error about "linkers", which refers to the "loading" step of the compilation process. I don't think "loading" and "linking" is a very intuitive error message to get.
+
 7) What is a segmentation fault?
 
+A segmentation fault is an error that occurs when you try to read or write an incorrect location in memory.
 
 ## Chapter 2
 
@@ -26,14 +39,24 @@ the error messages you get might look very different.  Why?
 
 1) Give a real-world example of virtualization (ideally not one of the ones in the book).
 
+I think the virtual machine is one type of virtualization. For example, the Linux Virtual Machine allows you to have the experience of running linux but you're actually in the Windows/MacOS environment. 
+
 2) What is the difference between a program and a process?
+
+A process is a software object that represents a running program. It contains the text, data, and state of operations from the program. One process usually runs one program. 
+I think the program is the group of code that interacts with the hardware, data, and instructions to carry out a task. 
 
 3) What is the primary purpose of the process abstraction?  What illusion does the process abstraction create?
 
+Process abstraction makes a simplified representation of something complicated. This illusion helps programmers use software efficiently by not requiring them to know all the details of its implementation.
+
 4) What is the kernel?
 
+A component of the OS that manages the core capabilities (like running threads). 
+
 5) What is a daemon?
- 
+
+A group of non-evil, background processes that provide operating system services. This is why the end of the "thread" process has the letter "d" at the end. 
 
 ## Chapter 3
 

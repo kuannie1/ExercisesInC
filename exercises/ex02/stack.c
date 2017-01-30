@@ -15,7 +15,7 @@ int *foo() {
     int array[SIZE];
 
     printf("%p\n", array);
-
+    // Makes all the index values = 42
     for (i=0; i<SIZE; i++) {
 	array[i] = 42;
     }
@@ -27,7 +27,7 @@ void bar() {
     int array[SIZE];
 
     printf("%p\n", array);
-
+    // Makes all the index values equal their location index
     for (i=0; i<SIZE; i++) {
 	array[i] = i;
     }
@@ -36,10 +36,11 @@ void bar() {
 int main()
 {
     int i;
-    int *array = foo();
+    // int *array = foo();
     bar();
 
     for (i=0; i<SIZE; i++) {
+    printf("currentindex: %d\n", i);
 	printf("%d\n", array[i]);
     }
 

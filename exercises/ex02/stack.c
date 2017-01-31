@@ -36,7 +36,7 @@ void bar() {
 int main()
 {
     int i;
-    // int *array = foo();
+    int *array = foo();
     bar();
 
     for (i=0; i<SIZE; i++) {

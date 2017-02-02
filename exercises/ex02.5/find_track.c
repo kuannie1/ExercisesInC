@@ -39,6 +39,7 @@ void find_track(char search_for[])
 void find_track_regex(char pattern[])
 {
     // TODO: fill this in
+    
 }
 
 // Truncates the string at the first newline, if there is one.

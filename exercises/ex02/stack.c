@@ -18,7 +18,7 @@ int *foo() {
 //    // int *array = malloc(SIZE * sizeof(int));
 
     //prints the memory address of this array
-    printf("foo %p\n", array);
+    // printf("foo %p\n", array);
     
     // for loop makes all the index values = 42
     for (i=0; i<SIZE; i++) {
@@ -37,7 +37,7 @@ void bar() {
     int array[SIZE];
 
     //Original print statement
-//    // printf("bar %p\n", array);
+   printf("bar %p\n", array);
     
     // Makes each space in the array equal their location index
     for (i=0; i<SIZE; i++) {

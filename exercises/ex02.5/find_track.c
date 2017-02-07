@@ -39,6 +39,7 @@ void find_track(char search_for[])
 void find_track_regex(char pattern[])
 {
     // TODO: fill this in
+    //Try using strstr function? Read chapter again
     
 }
 

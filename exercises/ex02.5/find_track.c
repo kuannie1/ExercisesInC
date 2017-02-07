@@ -39,8 +39,26 @@ void find_track(char search_for[])
 void find_track_regex(char pattern[])
 {
     // TODO: fill this in
-    //Try using strstr function? Read chapter again
-    
+    regex_t regex;
+    int reti;
+    int track_num;
+
+    // Compile regular expression:
+    reti = regcomp(&regex, pattern, REG_NOSUB);
+    if (reti) {
+        fprintf(stderr, "unsuccessful compile\n");
+        exit(1);
+    }
+
+    for (track_num = 0; track_num < NUM_TRACKS; track_num++) {
+        //execute regular expression:
+        reti = regexec(&regex, tracks[track_num], 0, NULL, 0);
+
+        if (!reti) {
+            printf(tracks[track_num]);
+        }
+    }
+    regfree(&regex);
 }
 
 // Truncates the string at the first newline, if there is one.

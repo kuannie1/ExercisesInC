@@ -8,31 +8,39 @@ int main() {
 		puts("Enter the card name: ");
 		scanf("%2s", card_name);
 		int val = 0;
-		switch(card_name[0]) {
-			case 'K':
-			case 'Q':
-			case 'J':
-				val = 10;
-				break;
-			case 'A':
-				val = 11;
-				break;
-			case 'X':
-				continue;
-			default:
-				val = atoi(card_name);
-				if ((val < 1) || (val > 10)) {
-					puts("I don't understand that value!");
-					continue;
-				}
-		}
+		
+		val = updateVal(card_name[0]);
+		
 		count = incrementCount(count, val);
-		printf("current count: %i\n", count);
+		
+		printCount();
 	}
 	return 0;
 }
-// 3 functions: 
-//one for incrementing count --> Done!
+
+int updateVal(char cardFace){ //To pass in a pointer, int * var
+	int val;
+	switch(cardFace) {
+		case 'K':
+		case 'Q':
+		case 'J':
+			val = 10;
+			break;
+		case 'A':
+			val = 11;
+			break;
+		case 'X':
+			continue;
+		default:
+			val = atoi(cardFace);
+			if ((val < 1) || (val > 10)) {
+				puts("I don't understand that value!");
+				continue;
+			}
+		}
+	return val;
+}
+
 
  // Increments count based on the card value:
 int incrementCount(int cardCount, int cardVal) {
@@ -42,4 +50,9 @@ int incrementCount(int cardCount, int cardVal) {
 		cardCount--;
 	}
 	return cardCount;
+}
+
+//prints current count:
+void printCount(int count){
+	printf("current count: %i\n", count);
 }

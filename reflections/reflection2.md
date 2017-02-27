@@ -17,4 +17,5 @@ I decided not to focus on ThinkOS this sprint, because I felt that it does not c
 
 #Possible Exam Questions
 Q: Why doesn't C support binary literals? What does C use instead?
+
 A: Binary literals take up a lot of space. C uses hex values, because they are more efficient. 

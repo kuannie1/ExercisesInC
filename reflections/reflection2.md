@@ -7,7 +7,7 @@ To get myself up to speed with the rest of my Happy Hedgehogs group, I also took
 In addition to studying the textbook, I read through chapters 4 and 5. I'm glad I read through chapter 5 because knowing them proved extremely useful for handling incoming HTTP requests. I was able to write [very basic structs](https://github.com/kuannie1/SoftSysHappyHedgehogs/commit/c8fc3f25b199635afe6d02f23abf31e3807d5b09) that Bill and I were able to build on later. This first step is something I thought went well with this sprint. 
 
 #Links to Head First C Exercises
-[Chapter 1 - It turns out I didn't finish this last time](https://github.com/kuannie1/ExercisesInC/tree/master/exercises/ex01)
+<!-- [Chapter 1 - It turns out I didn't finish this last time](https://github.com/kuannie1/ExercisesInC/tree/master/exercises/ex01) -->
 [Chapter 3](https://github.com/kuannie1/ExercisesInC/tree/master/exercises/ex03)
 
 I haven't done exercises 4 or 5 but I have read through them and implemented those concepts into our web server project. I'm still running into compilation issues with the trout files, so I'm in the process of resolving those.

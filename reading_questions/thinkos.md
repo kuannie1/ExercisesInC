@@ -129,8 +129,7 @@ I think this is a table that indicates the status of each file.
 
 The OS stores data in memory when you write a file so if you modify a block several times, the system only has to write it to disk once. It can also load blocks rather than bytes from disk due to the negligible time to load a KiB block. If the OS can predict a process block that is needed, it can load the block before it is requested. 
 
-4) Suppose your program writes a file and prints a message indicating that it is done writing. Then a power cut crashes your computer. After you restore power and reboot the computer, you find that the 
-file you wrote is not there. What happened?
+4) Suppose your program writes a file and prints a message indicating that it is done writing. Then a power cut crashes your computer. After you restore power and reboot the computer, you find that the file you wrote is not there. What happened?
 
 The file you wrote was probably written to memory but not immediately to storage because the buffering process often delays the writing to disk.
 
@@ -163,7 +162,7 @@ I don't think anything should change. Unsigned numbers are assumed to be positiv
 
 2) Write a C expression that computes the two's complement of 12 using the XOR bitwise operator. Try it out and confirm that the result is interpreted as -12.
 
-Check out [bitbyte.c]().
+Check out [bitbyte.c](https://github.com/kuannie1/ExercisesInC/blob/master/reading_questions/bitbyte.c).
 
 3) Can you guess why IEEE floating-point uses biased integers to represent the exponent rather than a sign bit or two's complement?
 
@@ -193,7 +192,7 @@ I got this step-by-step procedure from [this video](https://youtu.be/yh2m7BSzRRo
 5) Write a function that takes a string and converts from lower-case to upper-case by flipping the sixth bit. As a challenge, you can make a faster version by reading the string 32 or 64 bits at a time, rather than one
 character at a time. This optimization is made easier if the length of the string is a multiple of 4 or 8 bytes.
 
-Check out [uppercase.c]().
+Check out [uppercase.c](https://github.com/kuannie1/ExercisesInC/blob/master/reading_questions/uppercase.c).
 
 ## Chapter 6
 

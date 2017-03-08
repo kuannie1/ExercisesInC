@@ -65,23 +65,43 @@ A group of non-evil, background processes that provide operating system services
 
 1) The Georgian alphabet has 33 letters.  How many bit are needed to specify a letter?
 
+Since 5 bits can specify up to 32 letters, 6 bits are needed to 
+be able to specify a letter. To specify one letter, we need log base 2 of 33 bits. 
+
 2) In the UTF-16 character encoding, the binary representation of a character can take up to 32 bits.  
 Ignoring the details of the encoding scheme, how many different characters can be represented?
 
+Since we have 32 bits, we can indicate up to 2^32 values. 
+
 3) What is the difference between "memory" and "storage" as defined in Think OS?
+
+Main memory seems to be volatile, so the memory contents are lost once the computer shuts down. Storage does not get lost as the computer shuts down, so it gets used for long-term storage. 
+Memory is also measured in binary units, while storage is measured in decimal units. 
 
 4) What is the difference between a GiB and a GB?  What is the percentage difference in their sizes?
 
+GiB is in binary units, and has up 2^30 bytes. GB is in decimal units and has 10^9 bytes. I think this is a 7% difference (from calculating ((2^30)-(10^9))÷(((2^30)+(10^9))÷2). 
+
 5) How does the virtual memory system help isolate processes from each other?
+
+If there is no virtual address pointing to the specified physical address, then there's no way to access that address. So, even if two processes get the same virtual address, they would map to different locations in physical memory. This system makes it hard for processes to be working on the same physical memory location. 
 
 6) Why do you think the stack and the heap are usually located at opposite ends of the address space?
 
+Are they? If they are, I think that's due to how the stack grows down toward smaller addresses, and how heaps grows up toward larger addresses. It wouldn't make sense for the heap to grow into the stack, or for the stack to sink towards the heap. 
+
 7) What Python data structure would you use to represent a sparse array?
+
+I think a dictionary would best represent a sparse array, because it contains a key, which could be like the page number, and a value, which could be the additional information about the frame. 
 
 8) What is a context switch?
 
+The process of interrupting a running process, saving its state, and starting another process. The Memory Management Unit make sure each process has its own page table while doing this. 
+
 In this directory, you should find a subdirectory named `aspace` that contains `aspace.c`.  Run it on your computer and compare your results to mine.
-  
+
+Our results were slightly different but seemed very close (close enough). 
+
 1) Add a second call to `malloc` and check whether the heap on your system grows up (toward larger addresses).  
 
 2) Add a function that prints the address of a local variable, and check whether the stack grows down.  
@@ -89,6 +109,7 @@ In this directory, you should find a subdirectory named `aspace` that contains `
 3) Choose a random number between 1 and 32, and allocate two chunks with that size.  
 How much space is there between them?  Hint: Google knows how to subtract hexadecimal numbers.
 
+There are 32 bytes between them. 
 
 ## Chapter 4
 
@@ -98,19 +119,32 @@ How much space is there between them?  Hint: Google knows how to subtract hexade
 1) What abstractions do file systems provide?  Give an example of something that is logically 
 true about files systems but not true of their implementations.
 
+Logically, file systems provide a mapping from file names to its contents, and this content is in terms of bytes. But, persistent storage uses block-based implementation and operations. 
+
 2) What information do you imagine is stored in an `OpenFileTableEntry`?
+
+I think this is a table that indicates the status of each file. 
 
 3) What are some of the ways operating systems deal with the relatively slow performance of persistent storage?
 
-4) Suppose your program writes a file and prints a message indicating that it is done writing.  
-Then a power cut crashes your computer.  After you restore power and reboot the computer, you find that the 
-file you wrote is not there.  What happened?
+The OS stores data in memory when you write a file so if you modify a block several times, the system only has to write it to disk once. It can also load blocks rather than bytes from disk due to the negligible time to load a KiB block. If the OS can predict a process block that is needed, it can load the block before it is requested. 
+
+4) Suppose your program writes a file and prints a message indicating that it is done writing. Then a power cut crashes your computer. After you restore power and reboot the computer, you find that the 
+file you wrote is not there. What happened?
+
+The file you wrote was probably written to memory but not immediately to storage because the buffering process often delays the writing to disk.
 
 5) Can you think of one advantage of a File Allocation Table over a UNIX inode?  Or an advantage of a inode over a FAT?
 
+One advantage of a FAT is that it has faster access to files. Since inodes are smaller, they aren't used much for larger systems. 
+
 6) What is overhead?  What is fragmentation?
 
+Overhead is the data structure's allocated space. Fragmentation is the unused space of blocks. 
+
 7) Why is the "everything is a file" principle a good idea?  Why might it be a bad idea?
+
+This is a good idea because programmers would only have to learn 1 API, and programs may be more adaptable to change (due to the various ways it can work from data from different places). It might be a bad idea because this principle might not be true for everything. 
 
 If you would like to learn more about file systems, a good next step is to learn about journaling file systems.  
 Start with [this Wikipedia article](https://en.wikipedia.org/wiki/Journaling_file_system), then 
@@ -123,23 +157,43 @@ Also consider reading [this USENIX paper](https://www.usenix.org/legacy/event/us
 
 ### Bits and bytes
 
-1) Suppose you have the value 128 stored as an unsigned 8-bit number.  What happens if you convert 
-it to a 16-bit number and accidentally apply sign extension?
+1) Suppose you have the value 128 stored as an unsigned 8-bit number.  What happens if you convert it to a 16-bit number and accidentally apply sign extension?
 
-2) Write a C expression that computes the two's complement of 12 using the XOR bitwise operator. 
-Try it out and confirm that the result is interpreted as -12.
+I don't think anything should change. Unsigned numbers are assumed to be positive, and 128 is a positive number. Sign extensions would only add 0s to the number, which wouldn't do much other than format the number to a higher # of bits. 
 
-3) Can you guess why IEEE floating-point uses biased integers to represent the exponent rather than a
-sign bit or two's complement?
+2) Write a C expression that computes the two's complement of 12 using the XOR bitwise operator. Try it out and confirm that the result is interpreted as -12.
 
-4) Following the example in Section 5.4, write the 32-bit binary representation of -13 in single precision 
-IEEE floating-point.  What would you get if you accidentally interpreted this value as an integer?
+Check out [bitbyte.c]().
 
-5) Write a function that takes a string and converts from lower-case to upper-case by flipping the sixth bit.  
-As a challenge, you can make a faster version by reading the string 32 or 64 bits at a time, rather than one
-character at a time.  This optimization is made easier if the length of the string is a multiple of 4 or 8 bytes.
+3) Can you guess why IEEE floating-point uses biased integers to represent the exponent rather than a sign bit or two's complement?
+
+I think the biased integers helps us reach a larger range of exponents. 
+
+4) Following the example in Section 5.4, write the 32-bit binary representation of -13 in single precision IEEE floating-point.  What would you get if you accidentally interpreted this value as an integer?
+
+-13 
+binary representation: 1101
+floating point representation: 1.101 * 2^3
+
+3 sections: 1 bit for sign, an exponent (8 bits) and bias (127 bits (base 10?)) section, and a mantissa/fraction section
+
+fraction = 101
+
+shift binary representation period to the left get 1.101, shift p = 3
+exp = bias + p = 127 + 3 = 130
+128 = 1000 0000 (in base 2)
+130 is just 128 + 2 = 1000 0010 (which is the exponent)
 
 
+we have to add zeros until we reach our 32 bit mark.
+1 1000 0010 10100000000000000000000
+
+I got this step-by-step procedure from [this video](https://youtu.be/yh2m7BSzRRo): 
+
+5) Write a function that takes a string and converts from lower-case to upper-case by flipping the sixth bit. As a challenge, you can make a faster version by reading the string 32 or 64 bits at a time, rather than one
+character at a time. This optimization is made easier if the length of the string is a multiple of 4 or 8 bytes.
+
+Check out [uppercase.c]().
 
 ## Chapter 6
 

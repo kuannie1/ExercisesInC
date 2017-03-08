@@ -11,7 +11,7 @@ main (int argc, char *argv[])
   srandom (time (NULL));
 
   for (i=0; i<10000; i++) {
-    x = random_float();
-    printf ("%lf\n", x);
+    x = my_random_double();
+    printf ("%.12lf\n", x);
   }
 }

@@ -33,7 +33,15 @@ typedef struct {
  */
 Regex *make_regex(char *pattern, int flags) {
     // FILL THIS IN!
-    return NULL;
+    int reti;
+    regex_t regex;
+    reti = regcomp(&regex, pattern, flags);
+    if (reti) {
+        fprintf(stderr, "unsuccessful compile\n");
+        // exit(1);
+        return NULL;
+    }
+    return regex; // How do I return the right thing?
 }
 
 /* Checks whether a regex matches a string.
@@ -44,7 +52,12 @@ Regex *make_regex(char *pattern, int flags) {
  */
 int regex_match(Regex *regex, char *s) {
     // FILL THIS IN!
-    return 0;
+    int reti;
+    reti = regexec(&regex, &s, 0, NULL, 0);
+    if (reti) {
+        return 0;
+    }
+    return 1;
 }
 
 /* Frees a Regex.
@@ -53,6 +66,7 @@ int regex_match(Regex *regex, char *s) {
  */
 void regex_free(Regex *regex) {
     // FILL THIS IN!
+    regfree(&regex);
 }
 
 

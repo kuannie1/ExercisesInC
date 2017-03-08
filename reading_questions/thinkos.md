@@ -201,27 +201,41 @@ Check out [uppercase.c](https://github.com/kuannie1/ExercisesInC/blob/master/rea
 
 1) Which memory management functions would you expect to take constant time?  Which ones take time proportional to the size of the allocated chunk?
 
+I would expect malloc and free  to take constant time. I would expect calloc and realloc to take time proportional to the size of the memory chunk. 
+
 2) For each of the following memory errors, give an example of something that might go wrong:
 
 a) Reading from unallocated memory.
 
+You may read data that you were not supposed to see.
+
 b) Writing to unallocated memory.
+
+You will be changing data that you may need later. 
 
 c) Reading from a freed chunk.
 
+Reading from the freed chunk will not access the intended memory (since the pointer to the freed chunk is referencing something completely different).
+
 d) Writing to a freed chunk.
+
+You will be writing somewhere else (not to the freed chunk) because the pointer doesn't point there anymore. 
 
 e) Failing to free a chunk that is no longer needed.
 
+The program will use more memory unecessarily.
 
 3) Run
 
     ps aux --sort rss
 
-to see a list of processes sorted by RSS, which is "resident set size", the amount of physical 
-memory a process has.  Which processes are using the most memory?
+to see a list of processes sorted by RSS, which is "resident set size", the amount of physical memory a process has.  Which processes are using the most memory?
+
+According to my results, firefox processes are using the most memory. 
 
 4) What's wrong with allocating a large number of small chunks?  What can you do to mitigate the problem?
+
+The minimum chunk size is 16 bytes, so allocating them isn't very efficient. Arrays may be a better option. 
 
 If you want to know more about how malloc works, read 
 [Doug Lea's paper about dlmalloc](http://gee.cs.oswego.edu/dl/html/malloc.html)

@@ -1,6 +1,6 @@
 /* 
 
-tee command
+the tee command, by Anne Ku
 
 */
 

@@ -55,7 +55,17 @@ void print_list(Node **list) {
  */
 int pop(Node **list) {
     // FILL THIS IN!
-    return 0;
+    Node *current = *list;
+
+    if (current == NULL) {
+        return -1;
+    }
+
+    int headVal = current -> val;
+
+    **list = *(current->next);
+
+    return headVal;
 }
 
 
@@ -66,6 +76,8 @@ int pop(Node **list) {
  */
 void push(Node **list, int val) {
     // FILL THIS IN!
+    Node *newElement = make_node(val, *list);
+    *list = newElement; //the list points to this new element node
 }
 
 
@@ -80,7 +92,26 @@ void push(Node **list, int val) {
  */
 int remove_by_value(Node **list, int val) {
     // FILL THIS IN!
-    return 0;
+    int count = 0;
+    while (current->next != NULL) {
+        if (current->next->val == val) {
+            // Make a copy of the old node:
+            Node *old = *(current->next);
+            
+
+            //If next next node is NULL then
+
+            //If not, then skip over the old one
+
+            //then free old node
+
+            //increment
+
+
+        }
+    }
+
+    return count;
 }
 
 

@@ -249,7 +249,11 @@ If you want to know more about how malloc works, read
 
 1) What happens if a program writes a new value into the program counter?
 
+The flow of execution would jump to another location in the program. 
+
 2) What is the fundamental problem caches are meant to solve?
+
+Caches help speed up the time it takes to load content from memory. 
 
 3) If cache access time is 1 ns and memory access time is 10 ns, what is the average
 access time of a program with hit rate 50%?  How about 90%?

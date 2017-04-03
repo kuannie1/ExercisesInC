@@ -93,9 +93,17 @@ int main(int argc, char *argv[])
 	status = WEXITSTATUS(status);
 	printf("Child %d exited with error code %d.\n", pid, status);
     }
+
+
     // compute the elapsed time
     stop = get_seconds();
     printf("Elapsed time = %f seconds.\n", stop - start);
     
     exit(0);
 }
+
+
+/*
+fork.c works by 
+
+*/ 

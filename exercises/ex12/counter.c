@@ -12,6 +12,7 @@
 
 #define NUM_CHILDREN 2
 
+int global = 42;
 // UTILITY FUNCTIONS
 
 /*  perror_exit
@@ -154,11 +155,15 @@ void join_thread (pthread_t thread)
  */
 void child_code (Shared *shared)
 {
+    int in_the_stack = 17;
     printf ("Starting child at counter %d\n", shared->counter);
 
     while (1) {
 	    if (shared->counter >= shared->end) {
-	        return;
+	        printf("global is now %d\n", global);
+            printf("address of local %p\n", &in_the_stack);
+
+            return;
 	    }
 	    shared->array[shared->counter]++;
 	    shared->counter++;
@@ -219,7 +224,7 @@ int main ()
     for (i=0; i<NUM_CHILDREN; i++) {
 	child[i] = make_thread (entry, shared);
     }
-
+    global = 17;
     for (i=0; i<NUM_CHILDREN; i++) {
 	    join_thread (child[i]);
     }

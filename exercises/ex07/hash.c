@@ -180,9 +180,10 @@ int hash_hashable(Hashable *hashable)
 int equal_int (void *ip, void *jp)
 {
     // FILL THIS IN!
-    return 0;
+    int i = *(int*) ip;
+    int j = *(int*) jp;
+    return (i == j);
 }
-
 
 /* Compares strings. 
  *
@@ -194,9 +195,13 @@ int equal_int (void *ip, void *jp)
 int equal_string (void *s1, void *s2)
 {
     // FILL THIS IN!
+    char* s_1 = (char*) s1;
+    char* s_2 = (char*) s2;
+    if (strcmp(s_1, s_2) == 0) {
+        return 1;
+    }
     return 0;
 }
-
 
 /* Compares Hashables. 
  *
@@ -209,6 +214,10 @@ int equal_string (void *s1, void *s2)
 int equal_hashable(Hashable *h1, Hashable *h2)
 {
     // FILL THIS IN!
+    if (h1->equal == h2->equal) {
+        return h1->equal(h1->key, h2->key);
+    }
+
     return 0;
 }
 
@@ -298,6 +307,14 @@ Node *prepend(Hashable *key, Value *value, Node *rest)
 Value *list_lookup(Node *list, Hashable *key)
 {
     // FILL THIS IN!
+    // Loop through the list until we get the right key
+    Node *current = list;
+    while (current->next != NULL) { //key is a hashable
+    	if (equal_hashable(current->key, key) == 1){
+    		return current->value;
+    	}
+    	current = current->next;
+    }
     return NULL;
 }
 
@@ -343,6 +360,14 @@ void print_map(Map *map)
 void map_add(Map *map, Hashable *key, Value *value)
 {
     // FILL THIS IN!
+    Node* nodeList = make_node(key, value, NULL);
+    int hashable = hash_hashable(key);
+    int mapIndex = hashable%map->n;
+    if (map->lists[mapIndex] == NULL) {
+        map -> lists[mapIndex] = nodeList;
+    } else {
+        map->lists[mapIndex] = prepend(key, value, map->lists[mapIndex]);
+    }
 }
 
 
@@ -350,7 +375,15 @@ void map_add(Map *map, Hashable *key, Value *value)
 Value *map_lookup(Map *map, Hashable *key)
 {
     // FILL THIS IN!
-    return NULL;
+    int hashable = hash_hashable(key);
+    int mapIndex = hashable%(map->n);
+
+    if (map -> lists[mapIndex] == NULL) {
+        return NULL;
+    }
+    Node *current = map->lists[mapIndex];
+
+    return current->value;
 }
 
 
@@ -365,31 +398,43 @@ void print_lookup(Value *value)
 
 int main ()
 {
+	//"Making hashtables
     Hashable *hashable1 = make_hashable_int (1);
     Hashable *hashable2 = make_hashable_string ("Apple");
     Hashable *hashable3 = make_hashable_int (2);
-
-    // make a list by hand
+    
+    // make a list by hand, starting with an int value
     Value *value1 = make_int_value (17);
     Node *node1 = make_node(hashable1, value1, NULL);
+    printf("Printing the node1 that we just made\n");
     print_node (node1);
 
+
+    //Adding to that list with another node, added like a stack?
     Value *value2 = make_string_value ("Orange");
     Node *list = prepend(hashable2, value2, node1);
+    printf("Printing the list that includes nodes 1 & 2\n");
     print_list (list);
 
     // run some test lookups
     Value *value = list_lookup (list, hashable1);
+    printf("the value at the hastable1 key in list\n");
     print_lookup(value);
-
+    
+    //replacing the value to find hashtable2
     value = list_lookup (list, hashable2);
+    printf("the value at the hastable2 key in list\n");
     print_lookup(value);
-
+    
+    //replacing the value again
     value = list_lookup (list, hashable3);
+    printf("the value at the hastable3 key in list\n");
     print_lookup(value);
 
     // make a map
+    printf("Making a map\n");
     Map *map = make_map(10);
+    //"Adding key-value pair 1 & key-value pair 2 to the map
     map_add(map, hashable1, value1);
     map_add(map, hashable2, value2);
 

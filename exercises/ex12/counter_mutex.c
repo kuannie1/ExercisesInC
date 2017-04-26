@@ -12,7 +12,6 @@
 
 #define NUM_CHILDREN 2
 
-// int global = 42;
 // UTILITY FUNCTIONS
 
 /*  perror_exit
@@ -81,6 +80,7 @@ typedef struct {
     int counter;
     int end;
     int *array;
+    Semaphore *mutex;
 } Shared;
 
 /*  make_shared
@@ -103,6 +103,7 @@ Shared *make_shared (int end)
     for (i=0; i<shared->end; i++) {
         shared->array[i] = 0;
     }
+    shared->mutex = make_semaphore(1);
     return shared;
 }
 
@@ -155,23 +156,22 @@ void join_thread (pthread_t thread)
  */
 void child_code (Shared *shared)
 {
-    // int in_the_stack = 17;
     // printf ("Starting child at counter %d\n", shared->counter);
 
     while (1) {
-	    if (shared->counter >= shared->end) {
-	        // printf("global is now %d\n", global);
-         //    printf("address of local %p\n", &in_the_stack);
-
+        sem_wait(shared->mutex);
+        if (shared->counter >= shared->end) {
+            sem_signal(shared->mutex);
             return;
-	    }
-	    shared->array[shared->counter]++;
-	    shared->counter++;
+        }
 
-        // Print status every 100000
-	    // if (shared->counter % 100000 == 0) {
-	    //     printf ("%d\n", shared->counter);
-	    // }
+        shared->array[shared->counter]++;
+        shared->counter++;
+
+        // if (shared->counter % 100000 == 0) {
+        //     printf ("%d\n", shared->counter);
+        // }
+        sem_signal(shared->mutex);
     }
 }
 
@@ -225,7 +225,6 @@ int main ()
     for (i=0; i<NUM_CHILDREN; i++) {
 	child[i] = make_thread (entry, shared);
     }
-    
     for (i=0; i<NUM_CHILDREN; i++) {
 	    join_thread (child[i]);
     }

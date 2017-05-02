@@ -1,8 +1,8 @@
-/*     This file contains an example program from The Little Book of
-       Semaphores, available from Green Tea Press, greenteapress.com
+/*     
+    counter_mutex.c
 
-       Copyright 2014 Allen B. Downey
-       License: Creative Commons Attribution-ShareAlike 3.0
+    
+
 */
 
 #include <stdio.h>

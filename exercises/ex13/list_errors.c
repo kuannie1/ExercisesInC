@@ -42,7 +42,7 @@ int pop(Node **head) {
     next_node = (*head)->next;
     retval = (*head)->val;
     *head = next_node;
-
+    free(head);
     return retval;
 }
 
@@ -71,6 +71,7 @@ int remove_by_value(Node **head, int val) {
 	if (node->next->val == val) {
 	    victim = node->next;
 	    node->next = victim->next;
+        free(victim);
 	    return 1;
 	}
     }
@@ -162,6 +163,16 @@ int main() {
 
     Node *something = make_something();
     free(something);
+
+    Node *current; Node *old;
+    // Loop through test_list to free everything:
+    while (test_list->next != NULL) {
+        current = test_list->next;
+        old = test_list;
+        free(old);
+        test_list = current;
+    }
+    free(test_list);
 
     return 0;
 }

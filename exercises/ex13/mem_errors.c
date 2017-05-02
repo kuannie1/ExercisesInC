@@ -35,12 +35,13 @@ int main ()
     read_element(array1, 100);
 
     // but it does bounds-check dynamic arrays
-    read_element(array2, -1);
-    read_element(array2, 100);
+    read_element(array2, 0);
+    read_element(array2, 99);
 
     // and it catches use after free
     free(use_after_free);
-    *use_after_free = 17;
+    // // Because we can't point to it after it's freed
+    // *use_after_free = 17;
     
     // never_free is definitely lost
     *never_free = 17;
@@ -49,10 +50,16 @@ int main ()
     // free(&never_allocated);
 
     // but this one doesn't
-    free_anything(&never_allocated);
+    // // never_allocated doesn't have a malloc
+    // free_anything(&never_allocated);
     
     free(free_twice);
-    free(free_twice);
+    // // You can't free something twice
+    // free(free_twice);
+
+    // Freeing stuff that was allocated before:
+    free(never_free);
+    free(array2);
 
     return 0;
 }
